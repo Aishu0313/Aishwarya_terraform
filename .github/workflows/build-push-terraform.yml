@@ -38,26 +38,26 @@ jobs:
       - name: Import existing resources if needed
         working-directory: ./terraform
         run: |
-          terraform import aws_ecr_repository.app1_repo 539935451710/node-app1 || true
-          terraform import aws_ecr_repository.app2_repo 539935451710/node-app2 || true
+          terraform import aws_ecr_repository.app1_repo 480926032884/node-app1 || true
+          terraform import aws_ecr_repository.app2_repo 480926032884/node-app2 || true
           terraform import aws_iam_role.lambda_exec lambda_exec_role || true
 
       - name: Login to ECR
         run: |
           aws ecr get-login-password --region us-west-1 | \
-          docker login --username AWS --password-stdin 539935451710.dkr.ecr.us-west-1.amazonaws.com
+          docker login --username AWS --password-stdin 480926032884.dkr.ecr.us-west-1.amazonaws.com
 
       - name: Build and Push App1
         run: |
           docker build -t node-app1 ./app1
-          docker tag node-app1 539935451710.dkr.ecr.us-west-1.amazonaws.com/node-app1:latest
-          docker push 539935451710.dkr.ecr.us-west-1.amazonaws.com/node-app1:latest
+          docker tag node-app1 480926032884.dkr.ecr.us-west-1.amazonaws.com/node-app1:latest
+          docker push 480926032884.dkr.ecr.us-west-1.amazonaws.com/node-app1:latest
 
       - name: Build and Push App2
         run: |
           docker build -t node-app2 ./app2
-          docker tag node-app2 539935451710.dkr.ecr.us-west-1.amazonaws.com/node-app2:latest
-          docker push 539935451710.dkr.ecr.us-west-1.amazonaws.com/node-app2:latest
+          docker tag node-app2 480926032884.dkr.ecr.us-west-1.amazonaws.com/node-app2:latest
+          docker push 480926032884.dkr.ecr.us-west-1.amazonaws.com/node-app2:latest
 
       - name: terraform apply all
         working-directory: ./terraform
